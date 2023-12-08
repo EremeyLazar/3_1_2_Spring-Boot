@@ -42,7 +42,7 @@ public class UserDaoImp implements UserDao {
     }
 
     public void update(User updatedUser, Long id) {
-        User needsUpdate = getOne(id);
+        User needsUpdate = entityManager.find(User.class, id);
         needsUpdate.setName(updatedUser.getName());
         needsUpdate.setCell(updatedUser.getCell());
         needsUpdate.setCountry(updatedUser.getCountry());

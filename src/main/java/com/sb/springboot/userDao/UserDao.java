@@ -6,13 +6,13 @@ import com.sb.springboot.model.User;
 import java.util.List;
 
 public interface UserDao {
-    public List<User> getAll();
+    List<User> getAll();
 
-    public User getOne(Long id);
+    User getOne(Long id);
 
-    public void createUser(User user);
+    void createUser(User user);
 
-    public void deleteUser(long id);
+    void deleteUser(long id);
 
     public void update(User updatedUser, Long id);
 }
