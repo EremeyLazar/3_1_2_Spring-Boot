@@ -3,9 +3,6 @@ package com.sb.springboot.userDao;
 import com.sb.springboot.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,5 +40,10 @@ public class UserDaoImp implements UserDao {
         needsUpdate.setSalary(updatedUser.getSalary());
         needsUpdate.setDl(updatedUser.getDl());
         entityManager.persist(needsUpdate);
+    }
+
+    @Override
+    public User getOne(Long id) {
+        return entityManager.find(User.class, id);
     }
 }

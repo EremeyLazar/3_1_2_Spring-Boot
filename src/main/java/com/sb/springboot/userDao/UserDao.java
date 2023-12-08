@@ -13,4 +13,6 @@ public interface UserDao {
     void deleteUser(long id);
 
     public void update(User updatedUser, Long id);
+
+    User getOne(Long id);
 }

@@ -1,6 +1,5 @@
 package com.sb.springboot.service;
 
-
 import com.sb.springboot.model.User;
 
 import java.util.List;
