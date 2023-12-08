@@ -70,7 +70,10 @@ public class UsersController {
     }
 
     @PostMapping(value = "/update")
-    public String update(@ModelAttribute("upuser") User updatedUser) {
+    public String update(@ModelAttribute("upuser") @Valid User updatedUser, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/update";
+        }
         userService.update(updatedUser, updatedUser.getId());
         return "redirect:/";
     }
