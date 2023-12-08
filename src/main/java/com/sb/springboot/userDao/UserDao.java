@@ -8,8 +8,6 @@ import java.util.List;
 public interface UserDao {
     List<User> getAll();
 
-    User getOne(Long id);
-
     void createUser(User user);
 
     void deleteUser(long id);

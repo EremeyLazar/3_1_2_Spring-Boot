@@ -2,9 +2,11 @@ package com.sb.springboot.controller;
 
 import com.sb.springboot.model.User;
 import com.sb.springboot.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +37,11 @@ public class UsersController {
     }
 
     @PostMapping(value = "/usercreation")
-    public String createUser(@ModelAttribute("newuser") User user) {
+    public String createUser(@ModelAttribute("newuser") @Valid User user,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/usercreation";
+        }
         userService.createUser(user);
         return "redirect:/";
     }
@@ -44,7 +50,6 @@ public class UsersController {
     //    DELETE USER!!!
     @GetMapping(value = "/deleteuser")
     public String deleteUser(@RequestParam("id") long id) {
-        User user = userService.getOne(id);
         userService.deleteUser(id);
         return "redirect:deleted";
     }

@@ -17,30 +17,24 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public List<User> getAll() {
         List<User> resultList = entityManager.createQuery("select u from User u", User.class).getResultList();
         return resultList;
     }
 
-    public User getOne(Long id) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
-        Root<User> root = query.from(User.class);
-        query.select(root)
-                .where(criteriaBuilder.equal(root.get("id"), id));
-        User user = entityManager.createQuery(query).getSingleResult();
-        return user;
-    }
-
+    @Override
     public void createUser(User user) {
         entityManager.persist(user);
     }
 
+    @Override
     public void deleteUser(long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
 
+    @Override
     public void update(User updatedUser, Long id) {
         User needsUpdate = entityManager.find(User.class, id);
         needsUpdate.setName(updatedUser.getName());

@@ -2,6 +2,8 @@ package com.sb.springboot.service;
 
 import com.sb.springboot.model.User;
 import com.sb.springboot.userDao.UserDao;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,28 +17,35 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
     public List<User> getAll() {
         List<User> resultList = userDao.getAll();
         return resultList;
     }
 
-    public User getOne(Long id) {
-        User user = userDao.getOne(id);
-        return user;
-    }
-
+    @Override
     @Transactional
     public void createUser(User user) {
         userDao.createUser(user);
     }
 
+    @Override
     @Transactional
     public void deleteUser(long id) {
         userDao.deleteUser(id);
     }
 
+    @Override
     @Transactional
     public void update(User updatedUser, Long id) {
         userDao.update(updatedUser, id);
+    }
+
+    @Override
+    public User getOne (Long id) {
+        return entityManager.find(User.class, id);
     }
 }
